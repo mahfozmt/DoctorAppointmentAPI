@@ -131,13 +131,14 @@ namespace DoctorAppointmentAPI.Controllers
             }
         }
 
+        //localhost:51037/api/chambers/DoctorChambers/1
 
         [Route("DoctorChambers/{doctorId}")]
         [HttpGet]
         public List<Chamber> GetDoctorChambers ([FromRoute] int doctorId)
         {
             return _nonGenirecRepo.GetDoctorChambers(doctorId);
-
+             
         }
 
 

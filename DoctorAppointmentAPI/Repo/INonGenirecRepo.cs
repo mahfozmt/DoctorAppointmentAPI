@@ -14,6 +14,7 @@ namespace DoctorAppointmentAPI.Repo
         List<Serial> GetSerial();
         List<DoctorVM> GetDoctors(int spId);
         List<Chamber> GetDoctorChambers(int doctorId);
+        Task PostRoaster(RoasterOfDoctor roaster, int doctorId);
         Task< List<DetailedRoasterVM>> DoctorRoaster(int doctorid);
         Task< List<DetailedSerialVM>> DetailedSerials(int doctorid, DateTime date);
     }

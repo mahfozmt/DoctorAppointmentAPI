@@ -108,10 +108,17 @@ namespace DoctorAppointmentAPI.Repo
                                         }).ToListAsync();
             return DetailedSerial;
         }
-
         public List<Chamber> GetDoctorChambers(int doctorId)
         {
             return _context.Chambers.Include("Doctor").Where(x => x.DoctorId == doctorId).ToList();
+        }
+
+        public Task PostRoaster(RoasterOfDoctor roaster, int doctorId)
+        {
+            throw new NotImplementedException();
+
+
+
         }
     }
 }
