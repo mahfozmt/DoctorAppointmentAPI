@@ -93,7 +93,7 @@ namespace DoctorAppointmentAPI.Repo
         {
             var DetailedSerial = await (from serial in _context.Serials
                                         join pateint in _context.Pateints on serial.PateintId equals pateint.PateintId
-                                        join roaster in _context.RoasterOfDoctors on serial.RoasterOfDoctorId equals              roaster.RoasterOfDoctorId
+                                        join roaster in _context.RoasterOfDoctors on serial.RoasterOfDoctorId equals roaster.RoasterOfDoctorId
                                         join chamber in _context.Chambers on roaster.ChamberId equals chamber.ChamberId
                                         join doctor in _context.Doctors on chamber.DoctorId equals doctor.DoctorId
                                         where doctor.DoctorId == doctorid && roaster.Date == date
@@ -113,11 +113,32 @@ namespace DoctorAppointmentAPI.Repo
             return _context.Chambers.Include("Doctor").Where(x => x.DoctorId == doctorId).ToList();
         }
 
-        public Task PostRoaster(RoasterOfDoctor roaster, int doctorId)
+        public async Task PostRoaster(RoasterOfDoctor roaster, int doctorId)
         {
-            throw new NotImplementedException();
 
+            Doctor doctor = _context.Doctors.Find(doctorId);
+            List<RoasterOfDoctor> OldroasterOfDoctors = await _context.RoasterOfDoctors.Include("Chamber")
+                                                                .Where(x => x.Chamber.Doctor.DoctorId == doctorId
+                                                                &&
+                                                                x.Date >= DateTime.Now.Date).ToListAsync();
+            bool IsExist = false;
 
+            foreach (var item in OldroasterOfDoctors)
+            {
+                TimeSpan start = item.TimeStart;
+                TimeSpan end = item.TimeEnd;
+                TimeSpan now = DateTime.Now.TimeOfDay;
+
+                if ((now > start) && (now < end))
+                {
+                    IsExist = true;
+                }
+            }
+            if (IsExist != true)
+            {
+                _context.RoasterOfDoctors.Add(roaster);
+                await _context.SaveChangesAsync();
+            }
 
         }
     }

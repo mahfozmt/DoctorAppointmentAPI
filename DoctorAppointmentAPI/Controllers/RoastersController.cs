@@ -65,14 +65,15 @@ namespace DoctorAppointmentAPI.Controllers
 
         // POST: api/Roasters
         [HttpPost]
-        public async Task<ActionResult> PostRoaster([FromBody] RoasterOfDoctor roaster)
+        //Task PostRoaster(RoasterOfDoctor roaster, int doctorId)
+        public async Task<ActionResult> PostRoaster(int doctorId,[FromBody] RoasterOfDoctor roaster )
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _repo.Add(roaster);
-            var save = await _repo.SaveAsync(roaster);
+            await _nonGenirec.PostRoaster(roaster, doctorId);
+             
             return CreatedAtAction("GetRoasters", new { id = roaster.RoasterOfDoctorId }, roaster);
         }
 
@@ -143,7 +144,7 @@ namespace DoctorAppointmentAPI.Controllers
         // GET: DoctorRoaster/1
         [Route("/DoctorRoaster/{id}")]
         [HttpGet]
-      
+
         public async Task<ActionResult> DoctorRoaster([FromRoute] int id)
         {
             if (!ModelState.IsValid)
