@@ -64,9 +64,9 @@ namespace DoctorAppointmentAPI.Controllers
         }
 
         // POST: api/Roasters
-        [HttpPost]
+        [HttpPost("{doctorId}")]
         //Task PostRoaster(RoasterOfDoctor roaster, int doctorId)
-        public async Task<ActionResult> PostRoaster(int doctorId,[FromBody] RoasterOfDoctor roaster )
+        public async Task<ActionResult> PostRoaster([FromRoute] int doctorId,[FromBody] RoasterOfDoctor roaster )
         {
             if (!ModelState.IsValid)
             {

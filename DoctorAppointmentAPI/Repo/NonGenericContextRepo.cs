@@ -120,16 +120,16 @@ namespace DoctorAppointmentAPI.Repo
             List<RoasterOfDoctor> OldroasterOfDoctors = await _context.RoasterOfDoctors.Include("Chamber")
                                                                 .Where(x => x.Chamber.Doctor.DoctorId == doctorId
                                                                 &&
-                                                                x.Date >= DateTime.Now.Date).ToListAsync();
+                                                                x.Date == roaster.Date).ToListAsync();
             bool IsExist = false;
 
             foreach (var item in OldroasterOfDoctors)
             {
                 TimeSpan start = item.TimeStart;
                 TimeSpan end = item.TimeEnd;
-                TimeSpan now = DateTime.Now.TimeOfDay;
+                TimeSpan newStart = roaster.TimeStart;
 
-                if ((now > start) && (now < end))
+                if ((newStart >= start) && (newStart <= end))
                 {
                     IsExist = true;
                 }
