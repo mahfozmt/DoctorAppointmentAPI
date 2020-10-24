@@ -101,7 +101,9 @@ namespace DoctorAppointmentAPI.Repo
                                         select new DetailedSerialVM
                                         {
                                             BookingDate = serial.BookingDate,
+                                            DoctorId = doctor.DoctorId,
                                             ChamberAdress = chamber.Address,
+                                            PateintId = pateint.PateintId,
                                             PateintMobileNumber = pateint.MobileNumber,
                                             PateintName = pateint.Name,
                                             SerialNumber = serial.SerialNumber

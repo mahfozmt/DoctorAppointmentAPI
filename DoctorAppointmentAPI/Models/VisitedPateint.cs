@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DoctorAppointmentAPI.Models.ViewModel
+namespace DoctorAppointmentAPI.Models
 {
-    public class DetailedSerialVM
+    public class VisitedPateint
     {
         public int DoctorId { get; set; }
         public string ChamberAdress { get; set; }
@@ -14,8 +14,5 @@ namespace DoctorAppointmentAPI.Models.ViewModel
         public string PateintMobileNumber { get; set; }
         public int SerialNumber { get; set; }
         public DateTime BookingDate { get; set; }
-
     }
-
-
 }
